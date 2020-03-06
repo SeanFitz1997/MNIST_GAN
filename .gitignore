@@ -1,0 +1,5 @@
+training_checkpoints/*
+!training_checkpoints/.gitkeep 
+
+training_images/*
+!training_images/.gitkeep 
