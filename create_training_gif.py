@@ -2,6 +2,8 @@ import os
 import glob
 import imageio
 
+NTH_IMAGE = 10
+
 if __name__ == '__main__':
     print('Createing GIF ...')
 
@@ -15,13 +17,15 @@ if __name__ == '__main__':
         filenames = sorted(filenames)
 
         for i, filename in enumerate(filenames):
-            image = imageio.imread(filename)
-            writer.append_data(image)
+            # Only add every nth image or last to gif
+            if i % NTH_IMAGE == 0 or i == len(filenames) - 1:
+              image = imageio.imread(filename)
+              writer.append_data(image)
 
-            # Add extra frames of the last image
-            if i == len(filenames) - 1:
-                num_extra_frames = 5
-                for _ in range(num_extra_frames):
-                    writer.append_data(image)
+              # Add extra frames of the last image
+              if i == len(filenames) - 1:
+                  num_extra_frames = 5
+                  for _ in range(num_extra_frames):
+                      writer.append_data(image)
 
     print('GIF written to {}'.format(os.path.abspath(output_name)))
